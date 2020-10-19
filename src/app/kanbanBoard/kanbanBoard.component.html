@@ -1,0 +1,34 @@
+<div class="mt-20 layout-column justify-content-center align-items-center">
+    <section class="mt-50 layout-row align-items-center justify-content-center">
+      <input id="create-task-input" type="text" class="large" placeholder="New task name" [(ngModel)]="taskName" />
+      <button type="submit" class="ml-30" data-test-id="create-task-button" (click)="addTask()" [disabled]="taskName==''">Create task</button>
+    </section>
+
+    <div class="mt-50 layout-row">
+      <div class="card outlined ml-20 mt-0" *ngFor="let data of boardOption;index as i;">
+        <div class="card-text">
+          <h4>{{data.stageTitle}}</h4>
+          <ul class="styled mt-50">
+            <li *ngFor="let task of data.tasks; index as index;">
+              <div class="li-content layout-row justify-content-between align-items-center">
+                  <span>{{task.name}}</span>
+                  <div class="icons">
+                    <button class="icon-only x-small mx-2" (click)="back(data.stage,task.name)">
+                      <i class="material-icons">arrow_back</i>
+                    </button>
+
+                    <button class="icon-only x-small mx-2" (click)="ahead(data.stage,task.name)">
+                      <i class="material-icons">arrow_forward</i>
+                    </button>
+
+                    <button class="icon-only danger x-small mx-2" *ngIf="data.stage === 'backlog'">
+                      <i class="material-icons" (click)="removeTask(task.name)">delete</i>
+                    </button>
+                  </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
